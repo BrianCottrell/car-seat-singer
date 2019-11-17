@@ -38,11 +38,13 @@ public class ArtistActivity extends AppCompatActivity {
     Button button1;
     Button button2;
     TextView score;
+    ImageView katy1;
+    ImageView katy2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artist);
+        setContentView(R.layout.activity_artist_filled);
 
         imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textView);
@@ -50,6 +52,8 @@ public class ArtistActivity extends AppCompatActivity {
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         score = findViewById(R.id.score);
+        katy1 = findViewById(R.id.katy1);
+        katy2 = findViewById(R.id.katy2);
 
         artist = "Katy%20Perry";
 
@@ -70,6 +74,8 @@ public class ArtistActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                katy1.setVisibility(View.GONE);
+                katy2.setVisibility(View.GONE);
                 try {
                     artist = URLEncoder.encode(editText.getText().toString(), "UTF-8");
                     new JsonTask().execute("https://rest.bandsintown.com/artists/" + artist + "?app_id=capitol201939ad4ebef3caf1ac2914b0eb8203c030");

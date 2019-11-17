@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/cssbg"
     tools:context=".ArtistActivity">
 
     <TextView
@@ -46,6 +47,6 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Find" />
+        android:text="Search for Artist" />
 
 </LinearLayout>
