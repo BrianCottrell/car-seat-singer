@@ -51,6 +51,8 @@ public class ArtistActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         score = findViewById(R.id.score);
 
+        artist = "Katy%20Perry";
+
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             score.setText(intent.getExtras().getString("score"));
@@ -60,6 +62,7 @@ public class ArtistActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ArtistActivity.this, EventActivity.class);
+                intent.putExtra("artist", artist);
                 startActivity(intent);
             }
         });

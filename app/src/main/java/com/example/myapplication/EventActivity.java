@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class EventActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
+    String artist;
 
     JSONObject[] dataSet = new JSONObject[]{};
 
@@ -34,6 +36,11 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            artist = intent.getExtras().getString("artist");
+        }
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -46,10 +53,10 @@ public class EventActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(dataSet);
+        mAdapter = new MyAdapter(getApplicationContext(), dataSet);
         recyclerView.setAdapter(mAdapter);
 
-        new JsonTask().execute("https://rest.bandsintown.com/artists/Katy%20Perry/events?app_id=capitol201939ad4ebef3caf1ac2914b0eb8203c030");
+        new JsonTask().execute("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=capitol201939ad4ebef3caf1ac2914b0eb8203c030");
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -141,7 +148,7 @@ public class EventActivity extends AppCompatActivity {
             JSONObject responseObject = new JSONObject(responseArray.get(i).toString());
             dataSet[i] = responseObject;
         }
-        mAdapter = new MyAdapter(dataSet);
+        mAdapter = new MyAdapter(getApplicationContext(), dataSet);
         recyclerView.setAdapter(mAdapter);
 
         return responseArray;
